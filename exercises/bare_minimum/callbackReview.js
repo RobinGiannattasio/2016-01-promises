@@ -7,7 +7,7 @@ var request = require('request');
 
 // Before moving onto promises, it's important to review callbacks.
 
-// Asyncronous functions in JavaScript should follow the node style callback pattern.
+// Asynchronous functions in JavaScript should follow the node style callback pattern.
 // There are two conditions for this pattern:
 //   (1) The function expects a callback as the last argument
 //   (2) The callback is invoked with (err, results)
@@ -36,17 +36,33 @@ var request = require('request');
 // This function should retrieve the first line of the file at `filePath`
 // HINT: Passing 'utf8' as the second argument to fs.readFile will give you a stringified file
 // HINT: You can get an array of lines by splitting on the '\n' character
-var pluckFirstLineFromFile = function (filePath
-) {
+var pluckFirstLineFromFile = function (filePath, cb) {
   // YOUR CODE HERE
+  fs.readFile(filePath, 'utf8', function(err, content){
+    if (err) {
+      console.log('pluckFirstLineFromFile failed :(\n', err);
+      cb(err);
+    } else {
+      console.log('pluckFirstLineFromFile successfully completed! :) \n', content);
+      cb(err, content.split('\n')[0]);
+    }
+  });
 };
 
 // This function should retrieve the status code of a GET request to `url`
 // HINT: the `request` module has been included to help you send HTTP requests
 // HINT: there is a `statusCode` property on the `response` object
-var getStatusCode = function (url
-) {
+var getStatusCode = function (url, cb) {
   // YOUR CODE HERE
+  
+  request(url, function (error, response, body) {
+    if (error) {
+      cb(error);
+    } else {
+      cb(error, response.statusCode);
+    }
+  });
+  
 };
 
 // Export these functions so we can unit test them

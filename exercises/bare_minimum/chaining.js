@@ -42,7 +42,7 @@ var addNewUserToDatabase = function(user, callback) {
 // is passed to the next `.then` block in the chain
 //
 // Some notes:                           
-//   - If a syncronous value is returned, that value is immediately
+//   - If a synchronous value is returned, that value is immediately
 //     passed to the next `.then` block
 //
 //   - If a promise is returned, the value that fulfills the promise is eventually
