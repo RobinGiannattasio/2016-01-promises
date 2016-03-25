@@ -48,14 +48,14 @@ var addNewUserToDatabase = function(user, callback) {
 //   - If a promise is returned, the value that fulfills the promise is eventually
 //     passed to the next `.then` block
 //  
-//   - If a promise is returned and and error occurs inside the promise,
+//   - If a promise is returned and an error occurs inside the promise,
 //     the error falls past the chain, skipping all `.then` blocks,
 //     until it gets caught by a `.catch` block. If there is no `.catch` block,
 //     the error will get swallowed. Always catch your promise chains!
 
 // Chaining lets us get rid of the entire pyramid of doom!!
 
-Promise.promisifyAll(db)
+Promise.promisifyAll(db);
 
 var addNewUserToDatabaseAsync = function(user) {
   // The outermost `return` lets us continue the chain
@@ -65,7 +65,7 @@ var addNewUserToDatabaseAsync = function(user) {
       if (existingUser) {
         throw new Error('User already exists!') // Head straight to `catch`. Do not pass Go, do not collect $200
       } else {
-        return user; // Return a syncronous value
+        return user; // Return a synchronous value
       }
     })
     .then(function(newUser) {
@@ -79,14 +79,14 @@ var addNewUserToDatabaseAsync = function(user) {
 // Uncomment the lines below and run the example with `node exercises/bare_minimum/chaining.js`
 // It will succeed most of the time, but fail occasionally to demonstrate error handling
 
-// addNewUserToDatabaseAsync({ name: 'Dan', password: 'chickennuggets' })
-//   .then(function(savedUser) {
-//     console.log('All done!')
-//   })
-//   .catch(function(err) {
-//     // Will catch any promise rejections or thrown errors in the chain!
-//     console.log('Oops, caught an error: ', err.message)
-//   });
+addNewUserToDatabaseAsync({ name: 'Dan', password: 'chickennuggets' })
+  .then(function(savedUser) {
+    console.log('All done!')
+  })
+  .catch(function(err) {
+    // Will catch any promise rejections or thrown errors in the chain!
+    console.log('Oops, caught an error: ', err.message)
+  });
 
 /******************************************************************
  *                         Exercises                              *
@@ -103,9 +103,17 @@ var pluckFirstLineFromFileAsync = require('./promiseConstructor').pluckFirstLine
 var getGitHubProfileAsync = require('./promisification').getGitHubProfileAsync
 
 
-
+// console.log(pluckFirstLineFromFileAsync);
 var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
-  // TODO
+  //TODO
+  // return pluckFirstLineFromFileAsync(readFilePath)
+  //   .then(function(username) {
+  //     return getGitHubProfileAsync(username); // returns a Promise
+  //   }).then(function(profile) {
+  //     return fs.writeFile(writeFilePath, profile);
+  //   }).catch(function(err) {
+  //     console.log('Where are my nuggets? ', err.message);
+  //   });
 };
 
 module.exports = {
