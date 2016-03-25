@@ -106,14 +106,14 @@ var getGitHubProfileAsync = require('./promisification').getGitHubProfileAsync
 // console.log(pluckFirstLineFromFileAsync);
 var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
   //TODO
-  // return pluckFirstLineFromFileAsync(readFilePath)
-  //   .then(function(username) {
-  //     return getGitHubProfileAsync(username); // returns a Promise
-  //   }).then(function(profile) {
-  //     return fs.writeFile(writeFilePath, profile);
-  //   }).catch(function(err) {
-  //     console.log('Where are my nuggets? ', err.message);
-  //   });
+  return pluckFirstLineFromFileAsync(readFilePath)
+    .then(function(username) {
+      return getGitHubProfileAsync(username); // returns a Promise
+    }).then(function(profile) {
+      return fs.writeFile(writeFilePath, profile);
+    }).catch(function(err) {
+      console.log('Where are my nuggets? ', err.message);
+    });
 };
 
 module.exports = {
