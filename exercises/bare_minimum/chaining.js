@@ -101,6 +101,7 @@ addNewUserToDatabaseAsync({ name: 'Dan', password: 'chickennuggets' })
 // HINT: We already wrote some similar promise returning functions
 var pluckFirstLineFromFileAsync = require('./promiseConstructor').pluckFirstLineFromFileAsync;
 var getGitHubProfileAsync = require('./promisification').getGitHubProfileAsync
+var writeFileAsync = Promise.promisify(fs.writeFileAsync);
 
 
 // console.log(pluckFirstLineFromFileAsync);
@@ -110,7 +111,8 @@ var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
     .then(function(username) {
       return getGitHubProfileAsync(username); // returns a Promise
     }).then(function(profile) {
-      return fs.writeFile(writeFilePath, profile);
+      console.log(profile);
+      return fs.writeFileAsync(writeFilePath, JSON.stringify(profile));
     }).catch(function(err) {
       console.log('Where are my nuggets? ', err.message);
     });
